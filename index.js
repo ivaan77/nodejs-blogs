@@ -8,9 +8,13 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./models/Blog');
 require('./services/passport');
+require('./services/cache');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI, { useMongoClient: true });
+mongoose.connect(keys.mongoURI, { useMongoClient: true }).then(() => console.log("Mongo connected")).catch(err => {
+    console.log("Mongo connection failed");
+    console.log(err);
+});
 
 const app = express();
 
