@@ -13,7 +13,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-   await browser.close();
+    await browser.close();
 });
 
 test('Header has correct title', async () => {
@@ -27,4 +27,25 @@ test('Clicking Login starts oAuth flow', async () => {
     const url = await page.url();
 
     expect(url).toMatch(/accounts\.google\.com/)
+});
+
+test('when signin shows logout button', async () => {
+    const id = '5f9342a11fdff50ee5d9bd73';
+
+    const Buffer = require('safe-buffer').Buffer;
+    const sessionObject = {
+        passport: {
+            user: id
+        }
+    };
+
+    const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString('base64');
+
+    const Keygrip = require('keygrip');
+    const keys = require('../config/keys');
+
+    const keygrip = new Keygrip([ keys.cookieKey ]);
+    const signature = keygrip.sign('session=' + sessionString);
+
+    console.log(sessionString, signature);
 });
