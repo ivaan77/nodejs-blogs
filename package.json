@@ -12,6 +12,9 @@
     "heroku-postbuild": "npm run build",
     "test": "jest"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./tests/setup.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
